@@ -1,11 +1,7 @@
 'use strict';
 
-
-
 // element toggle function
 const elementToggleFunc = function (elem) { elem.classList.toggle("active"); }
-
-
 
 // sidebar variables
 const sidebar = document.querySelector("[data-sidebar]");
@@ -13,7 +9,6 @@ const sidebarBtn = document.querySelector("[data-sidebar-btn]");
 
 // sidebar toggle functionality for mobile
 sidebarBtn.addEventListener("click", function () { elementToggleFunc(sidebar); });
-
 
 
 // testimonials variables
@@ -50,8 +45,6 @@ for (let i = 0; i < testimonialsItem.length; i++) {
 }
 
 // add click event to modal close button
-modalCloseBtn.addEventListener("click", testimonialsModalFunc);
-overlay.addEventListener("click", testimonialsModalFunc);
 
 
 
@@ -118,7 +111,7 @@ for (let i = 0; i < filterBtn.length; i++) {
 // contact form variables
 const form = document.querySelector("[data-form]");
 const formInputs = document.querySelectorAll("[data-form-input]");
-const formBtn = document.querySelector("[data-form-btn]");
+const formBtn = document.querySelector("[da-form-btn]");
 
 // add event to all form input field
 for (let i = 0; i < formInputs.length; i++) {
@@ -126,7 +119,8 @@ for (let i = 0; i < formInputs.length; i++) {
 
     // check form validation
     if (form.checkValidity()) {
-      formBtn.removeAttribute("disabled");
+      //formBtn.removeAttribute("disabled");
+      formBtn.setAttribute("disabled", "");
     } else {
       formBtn.setAttribute("disabled", "");
     }
