@@ -198,15 +198,15 @@
             </li>
 
             <li class="filter-item">
-              <button data-filter-btn>Web design</button>
+              <button data-filter-btn>Software</button>
             </li>
 
             <li class="filter-item">
-              <button data-filter-btn>Applications</button>
+              <button data-filter-btn>Electronics</button>
             </li>
 
             <li class="filter-item">
-              <button data-filter-btn>Web development</button>
+              <button data-filter-btn>Hardware</button>
             </li>
 
           </ul>
@@ -230,24 +230,25 @@
               </li>
 
               <li class="select-item">
-                <button data-select-item>Web design</button>
+                <button data-select-item>Software</button>
               </li>
 
               <li class="select-item">
-                <button data-select-item>Applications</button>
+                <button data-select-item>Electronics</button>
               </li>
 
               <li class="select-item">
-                <button data-select-item>Web development</button>
+                <button data-select-item>Hardware</button>
               </li>
 
             </ul>
 
           </div>
 
-          <ul class="project-list">
+          <!-- <ul class="project-list">
 
-            <li class="project-item  active" data-filter-item data-category="web development">
+
+            <li class="project-item  active" data-filter-item data-category="Software">
               <a href="#">
 
                 <figure class="project-img">
@@ -255,17 +256,17 @@
                     <ion-icon name="eye-outline"></ion-icon>
                   </div>
 
-                  <img src="./assets/images/project-1.jpg" alt="finance" loading="lazy">
+                  <img src="./assets/project-thumbnails/project-1.jpg" alt="Open Flight" loading="lazy">
                 </figure>
 
-                <h3 class="project-title">Finance</h3>
+                <h3 class="project-title">Open Flight</h3>
 
-                <p class="project-category">Web development</p>
+                <p class="project-category">Software</p>
 
               </a>
             </li>
 
-            <li class="project-item  active" data-filter-item data-category="web development">
+            <li class="project-item  active" data-filter-item data-category="Hardware">
               <a href="#">
 
                 <figure class="project-img">
@@ -273,12 +274,12 @@
                     <ion-icon name="eye-outline"></ion-icon>
                   </div>
 
-                  <img src="./assets/images/project-2.png" alt="orizon" loading="lazy">
+                  <img src="./assets/project-thumbnails/project-2.png" alt="FPV Drone" loading="lazy">
                 </figure>
 
-                <h3 class="project-title">Orizon</h3>
+                <h3 class="project-title">FPV Drone</h3>
 
-                <p class="project-category">Web development</p>
+                <p class="project-category">Hardware</p>
 
               </a>
             </li>
@@ -291,7 +292,7 @@
                     <ion-icon name="eye-outline"></ion-icon>
                   </div>
 
-                  <img src="./assets/images/project-3.jpg" alt="fundo" loading="lazy">
+                  <img src="./assets/project-thumbnails/project-3.jpg" alt="fundo" loading="lazy">
                 </figure>
 
                 <h3 class="project-title">Fundo</h3>
@@ -309,7 +310,7 @@
                     <ion-icon name="eye-outline"></ion-icon>
                   </div>
 
-                  <img src="./assets/images/project-4.png" alt="brawlhalla" loading="lazy">
+                  <img src="./assets/project-thumbnails/project-4.png" alt="brawlhalla" loading="lazy">
                 </figure>
 
                 <h3 class="project-title">Brawlhalla</h3>
@@ -327,7 +328,7 @@
                     <ion-icon name="eye-outline"></ion-icon>
                   </div>
 
-                  <img src="./assets/images/project-5.png" alt="dsm." loading="lazy">
+                  <img src="./assets/project-thumbnails/project-5.png" alt="dsm." loading="lazy">
                 </figure>
 
                 <h3 class="project-title">DSM.</h3>
@@ -345,7 +346,7 @@
                     <ion-icon name="eye-outline"></ion-icon>
                   </div>
 
-                  <img src="./assets/images/project-6.png" alt="metaspark" loading="lazy">
+                  <img src="./assets/project-thumbnails/project-6.png" alt="metaspark" loading="lazy">
                 </figure>
 
                 <h3 class="project-title">MetaSpark</h3>
@@ -363,7 +364,7 @@
                     <ion-icon name="eye-outline"></ion-icon>
                   </div>
 
-                  <img src="./assets/images/project-7.png" alt="summary" loading="lazy">
+                  <img src="./assets/project-thumbnails/project-7.png" alt="summary" loading="lazy">
                 </figure>
 
                 <h3 class="project-title">Summary</h3>
@@ -381,7 +382,7 @@
                     <ion-icon name="eye-outline"></ion-icon>
                   </div>
 
-                  <img src="./assets/images/project-8.jpg" alt="task manager" loading="lazy">
+                  <img src="./assets/project-thumbnails/project-8.jpg" alt="task manager" loading="lazy">
                 </figure>
 
                 <h3 class="project-title">Task Manager</h3>
@@ -399,7 +400,7 @@
                     <ion-icon name="eye-outline"></ion-icon>
                   </div>
 
-                  <img src="./assets/images/project-9.png" alt="arrival" loading="lazy">
+                  <img src="./assets/project-thumbnails/project-9.png" alt="arrival" loading="lazy">
                 </figure>
 
                 <h3 class="project-title">Arrival</h3>
@@ -409,7 +410,51 @@
               </a>
             </li>
 
+          </ul> -->
+          <ul class="project-list" id="projects-container">
+            <!-- Projects will be loaded here -->
           </ul>
+
+          <script>
+            async function loadProjects() {
+              const container = document.getElementById("projects-container");
+
+              const folders = [
+                "test",
+                "pool-bot",
+                "pcb-printer"
+              ];
+              
+              for (const folder of folders) {
+
+                  const res = await fetch(`projects/${folder}/${folder}.json`);
+                  const data = await res.json();
+
+                  const li = document.createElement("li");
+                  li.className = "project-item active";
+                  li.setAttribute("data-filter-item", "");
+                  li.setAttribute("data-category", data.category);
+
+                  li.innerHTML = `
+                    <a href="projects/${folder}/${folder}.html">
+                      <figure class="project-img">
+                        <div class="project-item-icon-box">
+                          <ion-icon name="eye-outline"></ion-icon>
+                        </div>
+                        <img src="projects/${folder}/${folder}.jpg" alt="${data.title}" loading="lazy">
+                      </figure>
+                      <h3 class="project-title">${data.title}</h3>
+                      <p class="project-category">${data.category}</p>
+                    </a>
+                  `;
+
+                  container.appendChild(li);
+              }
+            }
+
+            loadProjects();
+          </script>
+
 
         </section>
 
