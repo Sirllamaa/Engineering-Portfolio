@@ -10,43 +10,33 @@ const sidebarBtn = document.querySelector("[data-sidebar-btn]");
 // sidebar toggle functionality for mobile
 sidebarBtn.addEventListener("click", function () { elementToggleFunc(sidebar); });
 
+document.addEventListener("click", async e => {
+  const trigger = e.target.closest(".project-trigger");
+  if (!trigger) return;
 
-// testimonials variables
-const testimonialsItem = document.querySelectorAll("[data-testimonials-item]");
-const modalContainer = document.querySelector("[data-modal-container]");
-const modalCloseBtn = document.querySelector("[data-modal-close-btn]");
-const overlay = document.querySelector("[data-overlay]");
+  const folder = trigger.dataset.folder;
+  const modal = document.getElementById("modal");
+  const modalBody = document.getElementById("modal-body");
 
-// modal variable
-const modalImg = document.querySelector("[data-modal-img]");
-const modalTitle = document.querySelector("[data-modal-title]");
-const modalText = document.querySelector("[data-modal-text]");
+  try {
+    const md = await fetch(`projects/${folder}/${folder}.md`).then(r => r.text());
+    modalBody.innerHTML = marked.parse(md); // Requires marked.js (see below)
+    modal.classList.remove("hidden");
+  } catch (err) {
+    modalBody.textContent = "Failed to load project details.";
+    modal.classList.remove("hidden");
+  }
+});
 
-// modal toggle function
-const testimonialsModalFunc = function () {
-  modalContainer.classList.toggle("active");
-  overlay.classList.toggle("active");
-}
+document.getElementById("modal-close").addEventListener("click", () => {
+  document.getElementById("modal").classList.add("hidden");
+});
 
-// add click event to all modal items
-for (let i = 0; i < testimonialsItem.length; i++) {
-
-  testimonialsItem[i].addEventListener("click", function () {
-
-    modalImg.src = this.querySelector("[data-testimonials-avatar]").src;
-    modalImg.alt = this.querySelector("[data-testimonials-avatar]").alt;
-    modalTitle.innerHTML = this.querySelector("[data-testimonials-title]").innerHTML;
-    modalText.innerHTML = this.querySelector("[data-testimonials-text]").innerHTML;
-
-    testimonialsModalFunc();
-
-  });
-
-}
-
-// add click event to modal close button
-
-
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape") {
+    document.getElementById("modal").classList.add("hidden");
+  }
+});
 
 // custom select variables
 const select = document.querySelector("[data-select]");
