@@ -141,3 +141,20 @@ for (let i = 0; i < navigationLinks.length; i++) {
 
   });
 }
+
+// --- NEW CODE: make "resume" the default page ---
+window.addEventListener("DOMContentLoaded", () => {
+  const defaultPage = "resume";
+  const hasActive = Array.from(pages).some(p => p.classList.contains("active"));
+  if (!hasActive) {
+    pages.forEach((p, i) => {
+      if (p.dataset.page === defaultPage) {
+        p.classList.add("active");
+        navigationLinks[i].classList.add("active");
+      } else {
+        p.classList.remove("active");
+        navigationLinks[i].classList.remove("active");
+      }
+    });
+  }
+});
